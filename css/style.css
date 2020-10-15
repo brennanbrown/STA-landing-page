@@ -350,7 +350,7 @@ h1, h2, h3, h4, h5, h6, figure {
 .sta-services,
 #sta-contact,
 .sta-blog {
-  padding: 7em 0;
+  padding: 2em 0;
   clear: both; }
 
 #sta-subscribe {
@@ -698,6 +698,10 @@ h1, h2, h3, h4, h5, h6, figure {
     #sta-counter .sta-heading p {
       font-size: 22px;
       color: rgba(255, 255, 255, 0.8); }
+
+.sta-center {
+  text-align: center;
+}
 
 .counter-entry {
   padding: 0;
