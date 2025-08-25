@@ -1,0 +1,115 @@
+// Prisma schema for STA app
+// Run migrations after setting DATABASE_URL in app/.env.local
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String   @id @default(cuid())
+  email              String   @unique
+  name               String?
+  image              String?
+  timezone           String?  @default("UTC")
+  weeklyGoalMinutes  Int?     @default(300)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  accounts     Account[]
+  integrations Integration[]
+  activities   Activity[]
+  goals        Goal[]
+  certificates Certificate[]
+}
+
+model Account {
+  id                String   @id @default(cuid())
+  userId            String
+  provider          String
+  providerAccountId String
+  createdAt         DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Service {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  integrations Integration[]
+  activities   Activity[]
+  certificates Certificate[]
+}
+
+model Integration {
+  id          String   @id @default(cuid())
+  userId      String
+  serviceId   String
+  status      String   @default("connected") // connected | error | disconnected
+  accessToken String?  // store securely if needed; prefer provider storage
+  refreshToken String?
+  meta        Json?
+  lastSyncAt  DateTime?
+  lastError   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, serviceId])
+}
+
+model Activity {
+  id        String   @id @default(cuid())
+  userId    String
+  serviceId String
+  date      DateTime
+  minutes   Int
+  title     String?
+  payload   Json?
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@index([userId, date])
+}
+
+model Goal {
+  id         String   @id @default(cuid())
+  userId     String
+  type       String   // e.g., weekly_minutes
+  target     Int
+  startAt    DateTime
+  endAt      DateTime?
+  status     String   @default("active")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Certificate {
+  id         String   @id @default(cuid())
+  userId     String
+  serviceId  String
+  title      String
+  issuedAt   DateTime
+  expiresAt  DateTime?
+  meta       Json?
+  createdAt  DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+}
