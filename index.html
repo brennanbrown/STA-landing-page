@@ -64,6 +64,7 @@
                         <div class="col-md-10 text-right menu-1">
                             <ul>
                                 <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#sta-dashboard">Dashboard</a></li>
                                 <li><a href="#sta-services">Services</a></li>
                                 <li><a href="https://dev.to/brennan">Blog</a></li>
                                 <li><a href="#">About</a></li>
@@ -197,7 +198,7 @@
                                 <div class="f-desc">
                                     <p>One of the best features of the Internet is the sheer amount of amazing websites and services available to people to learn new things and explore new ideas, with most of them being free!</p> 
 
-                                    <p>Ranging from the STEM topics such as mathematics on <a href="https://khanacademy.com>">Khan Academy,</a> computer science on <a href="https://projecteuler.net/">Project Euler</a>, and web development on <a href="https://codecademy.com">Codecademy</a>. To the humanities and arts, such an language learning on <a href="https://memrise.com/">Memrise</a> and courses on <a href="https://coursera.org">Coursera</a> or <a href="https://edx.org">EdX</a>, just to name a few.</p> 
+                                    <p>Ranging from the STEM topics such as mathematics on <a href="https://khanacademy.com">Khan Academy</a>, computer science on <a href="https://projecteuler.net/">Project Euler</a>, and web development on <a href="https://codecademy.com">Codecademy</a>. To the humanities and arts, such an language learning on <a href="https://memrise.com/">Memrise</a> and courses on <a href="https://coursera.org">Coursera</a> or <a href="https://edx.org">EdX</a>, just to name a few.</p> 
                                         
                                     <p>However, it can be so easy to eagerly start with one of these, but then quickly lose track and forget about it completely because life gets in the way! In spite of our best intentions, when we are our own teacher, we usually start to slack off easily.</p>
                                         
@@ -257,6 +258,63 @@
                     </div>
                 </div>
             </div> -->
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="sta-dashboard" class="sta-bg-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center sta-heading animate-box">
+                        <h2>Your Learning Dashboard</h2>
+                        <p>Interactive demo using mock data stored in your browser. Regenerate or clear data anytime.</p>
+                        <p>
+                            <a href="#" id="sta-regenerate" class="btn btn-primary btn-sm">Regenerate Data</a>
+                            <a href="#" id="sta-clear" class="btn btn-default btn-sm">Clear</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row animate-box">
+                    <div class="col-md-4 text-center">
+                        <div class="services">
+                            <span class="icon"><i class="icon-clock"></i></span>
+                            <div class="desc">
+                                <h3>Total Time</h3>
+                                <p id="sta-total-minutes">—</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="services">
+                            <span class="icon"><i class="icon-linegraph"></i></span>
+                            <div class="desc">
+                                <h3>This Week</h3>
+                                <p id="sta-weekly-minutes">—</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="services">
+                            <span class="icon"><i class="icon-fire"></i></span>
+                            <div class="desc">
+                                <h3>Current Streak</h3>
+                                <p id="sta-streak-days">—</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row animate-box">
+                    <div class="col-md-8">
+                        <div style="height: 320px;">
+                            <canvas id="sta-activity-chart" aria-label="Activity over time" role="img"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="height: 320px;">
+                            <canvas id="sta-service-chart" aria-label="Time by service" role="img"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!--
@@ -475,7 +533,7 @@
                         <ul class="sta-footer-links">
                             <li>Calgary, Alberta<br> Canada</li>
                             <li><a href="tel://4034012718"><i class="icon-phone"></i> (403) 401-2718</a></li>
-                            <li><a href="mailto:brennanbrwon.ca"><i class="icon-envelope"></i> mail@brennanbrown.ca</a></li>
+                            <li><a href="mailto:mail@brennanbrown.ca"><i class="icon-envelope"></i> mail@brennanbrown.ca</a></li>
                             <li><a href="https://brennanbrown.ca"><i class="icon-location4"></i> brennanbrown.ca</a></li>
                         </ul>
                     </div>
@@ -525,7 +583,9 @@
     <script src="js/jquery.countTo.js"></script>
     <!-- Main -->
     <script src="js/main.js"></script>
+    <!-- Charts and App -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/sta-app.js"></script>
 
     </body>
 </html>
-
